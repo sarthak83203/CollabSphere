@@ -1,7 +1,7 @@
 # TODO
 
 - [x] Backend Setup Done
+- [x] Authentication Routes
 - [ ] Creating DB Models
 - [ ] Tokens setup
-- [ ] Authentication Routes
 - [ ] Socket io Connection
