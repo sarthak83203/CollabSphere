@@ -1,5 +1,6 @@
 # TODO
 
+## Today's Task
 - [x] Backend Setup Done
 - [x] Authentication Routes
 - [x] Creating DB Models
