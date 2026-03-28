@@ -9,4 +9,4 @@
 - [x] Socket io Live Interacion(Critical)
 - [x] Merging Socket and Express server
 - [x] Backend Completed
-- [ ] Start with frontend
+- [x] Start with frontend
