@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../App.css";
 import family from "../assets/family.png";
 import videos from "../assets/video.jpg";
@@ -29,36 +30,31 @@ export default function Landing() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
- 
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
-    
+
     const handleTyping = () => {
       if (isDeleting) {
-        // Deleting text
         setTypingText(currentPhrase.substring(0, typingText.length - 1));
         setTypingSpeed(50);
-        
+
         if (typingText.length === 0) {
           setIsDeleting(false);
           setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
           setTypingSpeed(150);
         }
       } else {
-        // Typing text
         setTypingText(currentPhrase.substring(0, typingText.length + 1));
         setTypingSpeed(100);
-        
+
         if (typingText.length === currentPhrase.length) {
-          // Wait before starting to delete
           setTimeout(() => {
             setIsDeleting(true);
           }, 2000);
-          setTypingSpeed(100);
         }
       }
     };
-    
+
     const timer = setTimeout(handleTyping, typingSpeed);
     return () => clearTimeout(timer);
   }, [typingText, isDeleting, currentPhraseIndex, phrases, typingSpeed]);
@@ -78,38 +74,35 @@ export default function Landing() {
   return (
     <div className="landingPageContainer">
       <Background />
-      
-     
+
       <div className="contentOverlay" />
-      
-      
       <div className="animatedOverlay" />
-      
+
       {/* Custom cursor */}
-      <div 
-        className="customCursor" 
-        style={{ 
+      <div
+        className="customCursor"
+        style={{
           transform: `translate(${mousePosition.x - 15}px, ${mousePosition.y - 15}px)`,
-          width: isHovering ? '40px' : '30px',
-          height: isHovering ? '40px' : '30px',
-          transition: 'all 0.2s ease'
+          width: isHovering ? "40px" : "30px",
+          height: isHovering ? "40px" : "30px",
+          transition: "all 0.2s ease"
         }}
       />
 
-     
       <nav>
-        <h1 className="logo">
-          CollabSphere
-          <span className="logoDot">.</span>
-        </h1>
+        <h1 className="logo">CollabSphere</h1>
 
         <div className="navlist">
           <div className="guestLinks">
-            <h2 className="guestLink" onClick={handleGuest}>Join as Guest</h2>
-            <h2 className="guestLink" onClick={handleRegister}>Register</h2>
+            <h2 className="guestLink" onClick={handleGuest}>
+              Join as Guest
+            </h2>
+            <h2 className="guestLink" onClick={handleRegister}>
+              Register
+            </h2>
           </div>
-          <button 
-            className="loginBtn" 
+          <button
+            className="loginBtn"
             onClick={handleLogin}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
@@ -123,9 +116,9 @@ export default function Landing() {
       <div className="MainContainer">
         <div className="leftSection">
           <div className="badge">
-             Welcome to the future of connection
+            Welcome to the future of connection
           </div>
-          
+
           <h1>
             <span className="gradientText">Connect</span>
             <br />
@@ -134,16 +127,24 @@ export default function Landing() {
               <span className="cursor typingCursor">|</span>
             </div>
           </h1>
-          
+
           <p>
-            Experience next-generation video calls with stunning visuals, 
-            crystal-clear audio, and real-time collaboration tools. 
-            Join thousands of happy users connecting globally with unparalleled quality.
+            Experience next-generation video calls with stunning visuals,
+            crystal-clear audio, and real-time collaboration tools. Join
+            thousands of happy users connecting globally with unparalleled
+            quality.
           </p>
+
           
-         
-          
-         
+          <Link to="/auth" style={{ textDecoration: "none" }}>
+            <button
+              className="loginBtn"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
+              Get Started
+            </button>
+          </Link>
         </div>
 
         <div className="imageContainer">
@@ -160,8 +161,6 @@ export default function Landing() {
               <p>HD Video Quality</p>
             </div>
           </div>
-          
-          
         </div>
       </div>
     </div>
