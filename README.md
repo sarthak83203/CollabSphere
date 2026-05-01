@@ -10,3 +10,4 @@
 - [x] Merging Socket and Express server
 - [x] Backend Completed
 - [x] Start with frontend
+- [x] Will Continue after exams
