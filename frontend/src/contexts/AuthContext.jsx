@@ -1,39 +1,63 @@
-import React, { createContext, useState } from "react";
-
+import React, { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export const AuthContext = createContext();
+const client=axios.create({
+ baseURL:"http://localhost:8000/api/v1/users"
+})
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-
-  const handleLogin = async (username, password) => {
-    console.log("Login:", username, password);
-
-    if (username === "admin" && password === "1234") {
-      setUser({ username });
-      return "Login successful";
-    } else {
-      throw {
-        response: {
-          data: { message: "Invalid username or password" },
-        },
-      };
-    }
-  };
-
+  const authContext=useContext(AuthContext);
+  const [userData, setUserData] = useState(authContext);
+  const router=useNavigate();
   const handleRegister = async (name, username, password) => {
-    console.log("Register:", name, username, password);
-    return "Registered successfully!";
+   try{
+    let request=await client.post("/register",{
+      name:name,
+      username:username,
+      password:password,
+
+    })
+    if(request.status===201){
+      return request.data.message;
+    }
+
+   }catch(err){
+    throw err;
+
+   }
   };
 
-  const handleLogout = () => {
-    setUser(null);
-  };
+  const handleLogin=async(username,password)=>{
+    try{
+      let request=await client.post("/login",{
+        username:username,
+        password:password,
+      })
+      if(request.status===200){
+        localStorage.setItem("token",request.data.token);
 
-  return (
-    <AuthContext.Provider
-      value={{ user, handleLogin, handleRegister, handleLogout }}
-    >
+      }
+
+    }catch(err){
+      throw err;
+
+    }
+  }
+  
+  const data={
+    userData,setUserData,handleRegister,handleLogin
+  }
+  return(
+    <AuthContext.Provider value={data}>
       {children}
     </AuthContext.Provider>
-  );
+  )
+
+
+ 
+
+  
+
+  
 };
