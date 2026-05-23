@@ -15,6 +15,7 @@ const intializeSocket = (server) => {
     });
 
     io.on("connection", (socket) => {
+        console.log("SOMETHING CONNECTED");
 
         socket.on("join", (path) => {
             if (connections[path] === undefined) {
@@ -94,6 +95,7 @@ const intializeSocket = (server) => {
         });
 
     });
+    return io;
 };
 
 export default intializeSocket;

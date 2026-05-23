@@ -10,4 +10,4 @@
 - [x] Merging Socket and Express server
 - [x] Backend Completed
 - [x] Start with frontend
-- [ ] Start with STUN server
+- [x] Start with STUN server

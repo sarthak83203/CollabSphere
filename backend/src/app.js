@@ -22,7 +22,7 @@ app.get("/home",(req,res)=>{
 
 const server=createServer(app);
 const io=intializeSocket(server);
-app.set("port",(process.env.PORT || 8000));
+app.set("port",(8000));
 
 
 const start=async()=>{
